@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 240 10% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 15%;
+
+    /* Vibrant color palette */
+    --primary: 173 80% 40%; /* Teal */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 173 80% 60%;
+
+    --secondary: 258 90% 66%; /* Electric Violet */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-glow: 258 90% 76%;
+
+    --accent: 330 81% 60%; /* Hot Pink */
+    --accent-foreground: 0 0% 100%;
+    --accent-glow: 330 81% 70%;
+
+    --gold: 38 92% 50%; /* Gold */
+    --gold-foreground: 240 10% 15%;
+    --gold-glow: 38 92% 65%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 240 10% 15%;
+
+    --danger: 0 84% 60%;
+    --danger-foreground: 0 0% 100%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 173 80% 40%;
+
+    --radius: 1rem;
+
+    /* Gradients */
+    --gradient-aurora: linear-gradient(135deg, 
+      hsl(173, 80%, 40%) 0%, 
+      hsl(258, 90%, 66%) 35%, 
+      hsl(330, 81%, 60%) 70%, 
+      hsl(38, 92%, 50%) 100%);
+    
+    --gradient-glass: linear-gradient(135deg, 
+      hsla(0, 0%, 100%, 0.15) 0%, 
+      hsla(0, 0%, 100%, 0.05) 100%);
+
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+    --shadow-card: 0 20px 60px -10px hsl(240 10% 15% / 0.15);
+    --shadow-elevated: 0 25px 80px -15px hsl(240 10% 15% / 0.25);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    --background: 240 10% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --muted: 240 5% 20%;
+    --muted-foreground: 220 9% 65%;
+
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+
+    --shadow-card: 0 20px 60px -10px hsl(0 0% 0% / 0.5);
+    --shadow-elevated: 0 25px 80px -15px hsl(0 0% 0% / 0.7);
+  }
+}
+
+@layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism */
+  .glass {
+    background: linear-gradient(135deg, 
+      hsla(0, 0%, 100%, 0.15) 0%, 
+      hsla(0, 0%, 100%, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsla(0, 0%, 100%, 0.2);
+  }
+
+  .glass-card {
+    @apply glass rounded-2xl shadow-[0_20px_60px_-10px_rgba(0,0,0,0.15)];
+  }
+
+  /* Animated gradient background */
+  .gradient-aurora {
+    background: linear-gradient(135deg, 
+      hsl(173, 80%, 40%) 0%, 
+      hsl(258, 90%, 66%) 35%, 
+      hsl(330, 81%, 60%) 70%, 
+      hsl(38, 92%, 50%) 100%);
+    background-size: 300% 300%;
+    animation: aurora-shift 15s ease infinite;
+  }
+
+  @keyframes aurora-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.3);
+  }
+
+  .glow-secondary {
+    box-shadow: 0 0 40px hsl(var(--secondary) / 0.3);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 40px hsl(var(--accent) / 0.3);
+  }
+
+  /* Hover scale */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  /* Shake animation for validation errors */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+
+  .shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  /* Slide in animations */
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-in-up {
+    animation: slide-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* Pulse animation */
+  .pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.6);
+    }
+  }
+}
