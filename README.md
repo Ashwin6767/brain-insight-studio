@@ -60,6 +60,59 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Run the full project (frontend + backend)
+
+This repo now includes both the React frontend and a FastAPI backend.
+
+- Frontend: Vite app (this folder)
+- Backend: `server/` (FastAPI)
+- Notebook: `notebooks/alzheimers.ipynb` (to reproduce models and EDA)
+
+### 1) Backend
+
+Requirements: Python 3.11. On macOS Apple Silicon, TensorFlow uses Metal.
+
+```sh
+cd server
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# start API at http://localhost:8000
+python main.py
+# or
+# uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Notes:
+- `server/models/alzheimers_image_model.h5` is stored via Git LFS. If you cannot fetch LFS files, install Git LFS and re-pull:
+	- macOS: `brew install git-lfs && git lfs install`
+	- Then `git pull` again to download the `.h5`
+- If the `.h5` is missing, the image endpoint will be disabled gracefully. You can regenerate it from the notebook.
+
+### 2) Frontend
+
+Requirements: Node.js 18+.
+
+```sh
+npm i
+npm run dev
+# App runs at http://localhost:5173 (or the port Vite prints)
+```
+
+### 3) Configure the frontend to call the backend
+
+The frontend is already configured to call the backend at `http://localhost:8000`.
+
+### 4) Reproducing models with the notebook
+
+Open `notebooks/alzheimers.ipynb` in VS Code or Jupyter and run cells to download data, train, and export models.
+
+## Git LFS
+
+This repo uses Git LFS for large model files (`*.h5`). If you see a pointer file instead of the actual model, install LFS locally and run `git lfs install`, then re-pull.
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/8486fb14-d48a-406f-920f-f74304a95749) and click on Share -> Publish.
